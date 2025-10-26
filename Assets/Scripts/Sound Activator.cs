@@ -1,21 +1,22 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundActivator : MonoBehaviour
 {
-    [SerializeField] private ButtonClickHandler _bsuttonClickHandler;
+    [SerializeField] private Button _button;
     [SerializeField] private AudioSource _audioSource;
 
     private void Start()
     {
-        _bsuttonClickHandler.OnButtonPressed += PlaySound;
+        _button.onClick.AddListener(PlaySound);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        _bsuttonClickHandler.OnButtonPressed -= PlaySound;
+        _button.onClick.RemoveListener(PlaySound);
     }
 
-    private void PlaySound()
+    public void PlaySound()
     {
         _audioSource.Play();
     }
